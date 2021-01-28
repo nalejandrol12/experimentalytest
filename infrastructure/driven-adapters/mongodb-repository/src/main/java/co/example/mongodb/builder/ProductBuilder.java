@@ -1,22 +1,22 @@
 package co.example.mongodb.builder;
 
+import co.example.entities.CompleteProduct;
 import co.example.entities.Product;
 import co.example.entities.ProductDetail;
-import co.example.mongodb.data.ProductData;
+import co.example.mongodb.data.CompleteProductData;
 import lombok.RequiredArgsConstructor;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 import java.util.stream.Collectors;
 
 @RequiredArgsConstructor
 public class ProductBuilder {
-    public static Product convertToProduct(ProductData productData) {
+    public static Product convertToProduct(CompleteProductData productData) {
         return productData != null ?
                 Product.builder()
                         .id(productData.getId())
-                        .productName(productData.getProductName())
+                        .name(productData.getName())
                         .price(productData.getPrice())
                         .priceDiscount(productData.getPriceDiscount())
                         .discountRate(productData.getDiscountRate())
@@ -26,18 +26,52 @@ public class ProductBuilder {
                 : null;
     }
 
-    public static List<Product> convertToProductList(List<ProductData> productDataList) {
+    public static List<Product> convertToProductList(List<CompleteProductData> productDataList) {
         return productDataList != null ?
                 productDataList.stream().map(ProductBuilder::convertToProduct)
                         .collect(Collectors.toList())
                 : new ArrayList<>();
     }
 
-    public static ProductDetail convertToProductDetail(ProductData productData) {
+    public static CompleteProduct convertToCompleteProduct(CompleteProductData completeProductData) {
+        return completeProductData != null
+                ? CompleteProduct.builder()
+                .id(completeProductData.getId())
+                .name(completeProductData.getName())
+                .price(completeProductData.getPrice())
+                .priceDiscount(completeProductData.getPriceDiscount())
+                .discountRate(completeProductData.getDiscountRate())
+                .description(completeProductData.getDescription())
+                .frontImage(completeProductData.getFrontImage())
+                .backImage(completeProductData.getBackImage())
+                .otherImages(completeProductData.getOtherImages())
+                .featuredProduct(completeProductData.isFeaturedProduct())
+                .build()
+                : null;
+    }
+
+    public static CompleteProductData convertToCompleteProductData(CompleteProduct completeProduct) {
+        return completeProduct != null
+                ? CompleteProductData.builder()
+                .id(completeProduct.getId())
+                .name(completeProduct.getName())
+                .price(completeProduct.getPrice())
+                .priceDiscount(completeProduct.getPriceDiscount())
+                .discountRate(completeProduct.getDiscountRate())
+                .description(completeProduct.getDescription())
+                .frontImage(completeProduct.getFrontImage())
+                .backImage(completeProduct.getBackImage())
+                .otherImages(completeProduct.getOtherImages())
+                .featuredProduct(completeProduct.isFeaturedProduct())
+                .build()
+                : null;
+    }
+
+    public static ProductDetail convertToProductDetail(CompleteProductData productData) {
         return productData != null
                 ? ProductDetail.builder()
                 .id(productData.getId())
-                .productName(productData.getProductName())
+                .name(productData.getName())
                 .price(productData.getPrice())
                 .priceDiscount(productData.getPriceDiscount())
                 .discountRate(productData.getDiscountRate())
@@ -47,7 +81,7 @@ public class ProductBuilder {
                 : null;
     }
 
-    private static List<String> newImageList(ProductData productData) {
+    private static List<String> newImageList(CompleteProductData productData) {
 
         List<String> images = new ArrayList<>();
         images.add(productData.getBackImage());

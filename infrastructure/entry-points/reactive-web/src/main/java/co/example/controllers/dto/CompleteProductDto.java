@@ -1,19 +1,20 @@
-package co.example.mongodb.data;
+package co.example.controllers.dto;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.data.annotation.Id;
-import org.springframework.data.mongodb.core.mapping.Document;
+import lombok.NoArgsConstructor;
 
 import java.util.List;
 
 @Data
-@Document(collection = "Products")
+@AllArgsConstructor
 @Builder(toBuilder = true)
-public class ProductData {
-    @Id
+@NoArgsConstructor
+public class CompleteProductDto {
     private String id;
-    private String productName;
+    private String name;
     private Double price;
     private Double priceDiscount;
     private Double discountRate;

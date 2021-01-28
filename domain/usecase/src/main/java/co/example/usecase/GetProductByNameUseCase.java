@@ -11,7 +11,7 @@ import java.util.Map;
 import java.util.function.BiFunction;
 
 @RequiredArgsConstructor
-public class FindProductByNameUseCase {
+public class GetProductByNameUseCase {
     private final ProductGateway productGateway;
 
     public Mono<PaginationProduct> execute(Map<String, Object> params) {

@@ -1,5 +1,6 @@
 package co.example.mongodb;
 
+import co.example.entities.CompleteProduct;
 import co.example.entities.ProductDetail;
 import co.example.enums.NameParamsFindByNameEnum;
 import co.example.entities.Product;
@@ -30,20 +31,25 @@ public class ProductDataRepositoryAdapter {
         Pageable page = PageRequest.of((int) params.get(NameParamsFindByNameEnum.PAGE.getParam()),
                 (int) params.get(NameParamsFindByNameEnum.SIZE.getParam()));
 
-        return productDataRepository.findByProductName(params
+        return productDataRepository.findByName(params
                 .get(NameParamsFindByNameEnum.NAME.getParam()).toString(), page)
                 .collectList()
                 .map(ProductBuilder::convertToProductList);
     }
 
-    public Mono<Integer> countByProductName(String productName) {
-        return productDataRepository.countByProductName(productName).map(totalProducts
+    public Mono<Integer> countByName(String name) {
+        return productDataRepository.countByName(name).map(totalProducts
                 -> totalProducts.intValue());
     }
 
     public Mono<ProductDetail> findProductDetailById(String id) {
         return productDataRepository.findById(id)
                 .map(ProductBuilder::convertToProductDetail);
+    }
+
+    public Mono<CompleteProduct> createProduct(CompleteProduct completeProduct) {
+        return productDataRepository.save(ProductBuilder.convertToCompleteProductData(completeProduct))
+                .map(ProductBuilder::convertToCompleteProduct);
     }
 
 }

@@ -1,17 +1,17 @@
 package co.example.controllers;
 
-import co.example.entities.ProductDetail;
-import co.example.enums.NameParamsFindByNameEnum;
+import co.example.controllers.dto.CompleteProductDto;
+import co.example.controllers.factory.ProductFactory;
 import co.example.entities.PaginationProduct;
 import co.example.entities.Product;
-import co.example.usecase.FindProductByNameUseCase;
-import co.example.usecase.FindProductDetailByIdUseCase;
+import co.example.entities.ProductDetail;
+import co.example.enums.NameParamsFindByNameEnum;
+import co.example.usecase.CreateProductUseCase;
 import co.example.usecase.GetFeaturedProductListUseCase;
+import co.example.usecase.GetProductByNameUseCase;
+import co.example.usecase.GetProductDetailByIdUseCase;
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
 import java.util.HashMap;
@@ -24,8 +24,9 @@ import java.util.Map;
 public class ProductController {
 
     private final GetFeaturedProductListUseCase getFeaturedProductListUseCase;
-    private final FindProductByNameUseCase findProductByNameUseCase;
-    private final FindProductDetailByIdUseCase findProductDetailByIdUseCase;
+    private final GetProductByNameUseCase findProductByNameUseCase;
+    private final GetProductDetailByIdUseCase findProductDetailByIdUseCase;
+    private final CreateProductUseCase createProductUseCase;
 
     @GetMapping(path = "/featured")
     public Mono<List<Product>> getFeaturedProductList() {
@@ -49,6 +50,12 @@ public class ProductController {
     @GetMapping(path = "/detail")
     public Mono<ProductDetail> getProductDetail(@RequestParam() String id) {
         return findProductDetailByIdUseCase.execute(id);
+    }
+
+    @PostMapping()
+    public Mono<CompleteProductDto> getProductDetail(@RequestBody() CompleteProductDto completeProductDto) {
+        return createProductUseCase.execute(ProductFactory.convertToCompleteProduct(completeProductDto))
+                .map(ProductFactory::convertToCompleteProductDto);
     }
 
 }

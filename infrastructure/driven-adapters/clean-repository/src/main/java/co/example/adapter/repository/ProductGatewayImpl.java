@@ -1,5 +1,6 @@
 package co.example.adapter.repository;
 
+import co.example.entities.CompleteProduct;
 import co.example.entities.Product;
 import co.example.entities.ProductDetail;
 import co.example.gateway.ProductGateway;
@@ -30,11 +31,16 @@ public class ProductGatewayImpl implements ProductGateway {
 
     @Override
     public Mono<Integer> countByProductName(String productName) {
-        return productDataRepositoryAdapter.countByProductName(productName);
+        return productDataRepositoryAdapter.countByName(productName);
     }
 
     @Override
     public Mono<ProductDetail> findProductDetailById(String id) {
         return productDataRepositoryAdapter.findProductDetailById(id);
+    }
+
+    @Override
+    public Mono<CompleteProduct> createProduct(CompleteProduct completeProduct) {
+        return productDataRepositoryAdapter.createProduct(completeProduct);
     }
 }

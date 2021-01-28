@@ -11,7 +11,7 @@ import java.util.List;
 @AllArgsConstructor
 public class ProductDetail {
     private final String id;
-    private final String productName;
+    private final String name;
     private final Double price;
     private final Double priceDiscount;
     private final Double discountRate;

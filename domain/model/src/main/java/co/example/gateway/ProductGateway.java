@@ -1,5 +1,6 @@
 package co.example.gateway;
 
+import co.example.entities.CompleteProduct;
 import co.example.entities.Product;
 import co.example.entities.ProductDetail;
 import reactor.core.publisher.Flux;
@@ -16,4 +17,6 @@ public interface ProductGateway {
     Mono<Integer> countByProductName(String productName);
 
     Mono<ProductDetail> findProductDetailById(String id);
+
+    Mono<CompleteProduct> createProduct(CompleteProduct completeProduct);
 }
