@@ -1,0 +1,12 @@
+apply plugin: 'org.springframework.boot'
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter'
+    implementation project(":domain-model")
+    implementation project(":domain-usecase")
+    compile project(":entry-points-reactive-web")
+    compile project(":driven-adapters-mongodb-repository")
+    compile project(":driven-adapters-clean-repository")
+
+    runtime('org.springframework.boot:spring-boot-devtools')
+}

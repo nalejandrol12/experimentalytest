@@ -1,0 +1,5 @@
+dependencies {
+        implementation project(':domain-model')
+        compile project(":driven-adapters-mongodb-repository")
+        compile group: 'org.reactivecommons', name: 'object-mapper', version: '0.0.5'
+}

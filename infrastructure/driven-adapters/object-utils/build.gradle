@@ -1,0 +1,5 @@
+dependencies {
+    compile group: 'org.springframework', name: 'spring-context'
+    compile project(':domain-model')
+    compile group: 'org.reactivecommons', name: 'object-mapper', version: '0.0.5'
+}

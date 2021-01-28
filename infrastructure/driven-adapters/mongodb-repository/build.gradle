@@ -1,0 +1,6 @@
+dependencies {
+    implementation project(':domain-model')
+    compile 'org.springframework.boot:spring-boot-starter-data-mongodb-reactive'
+    implementation 'org.springframework:spring-context:5.2.0.RELEASE'
+    implementation 'com.google.code.gson:gson:2.8.5'
+}

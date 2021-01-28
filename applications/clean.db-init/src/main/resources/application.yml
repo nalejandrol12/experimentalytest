@@ -1,0 +1,10 @@
+##Spring Configuration
+server:
+  port: 7240
+spring:
+  application:
+    name: CleanArquitecture
+  data:
+    mongodb:
+      uri: mongodb+srv://experimentaly:experimentaly2021@cluster0.ctcza.mongodb.net/almacen?retryWrites=true&w=majority
+      database: almacen
