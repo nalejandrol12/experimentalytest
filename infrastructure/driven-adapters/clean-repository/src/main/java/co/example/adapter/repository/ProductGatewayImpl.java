@@ -30,8 +30,8 @@ public class ProductGatewayImpl implements ProductGateway {
     }
 
     @Override
-    public Mono<Integer> countByProductName(String productName) {
-        return productDataRepositoryAdapter.countByName(productName);
+    public Mono<Integer> countByProductName(String name) {
+        return productDataRepositoryAdapter.countByName(name);
     }
 
     @Override

@@ -38,8 +38,7 @@ public class ProductDataRepositoryAdapter {
     }
 
     public Mono<Integer> countByName(String name) {
-        return productDataRepository.countByName(name).map(totalProducts
-                -> totalProducts.intValue());
+        return productDataRepository.countByName(name).map(Long::intValue);
     }
 
     public Mono<ProductDetail> findProductDetailById(String id) {

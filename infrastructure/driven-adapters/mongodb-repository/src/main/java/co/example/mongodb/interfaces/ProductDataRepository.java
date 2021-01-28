@@ -14,9 +14,9 @@ public interface ProductDataRepository extends ReactiveCrudRepository<CompletePr
         ReactiveQueryByExampleExecutor<CompleteProductData> {
     Flux<CompleteProductData> findByFeaturedProductIsTrue();
 
-    @Query(value = "{'productName': {$regex: ?0, $options: 'i'}}")
+    @Query(value = "{'name': {$regex: ?0, $options: 'i'}}")
     Flux<CompleteProductData> findByName(String name, Pageable pageable);
 
-    @Query(value = "{'productName': {$regex: ?0, $options: 'i'}}", count = true)
+    @Query(value = "{'name': {$regex: ?0, $options: 'i'}}", count = true)
     Mono<Long> countByName(String name);
 }

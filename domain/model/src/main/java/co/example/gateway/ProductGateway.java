@@ -14,7 +14,7 @@ public interface ProductGateway {
 
     Mono<List<Product>> findByName(Map<String, Object> params);
 
-    Mono<Integer> countByProductName(String productName);
+    Mono<Integer> countByProductName(String name);
 
     Mono<ProductDetail> findProductDetailById(String id);
 

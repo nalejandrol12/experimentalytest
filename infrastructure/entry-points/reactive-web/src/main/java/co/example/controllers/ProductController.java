@@ -6,11 +6,14 @@ import co.example.entities.PaginationProduct;
 import co.example.entities.Product;
 import co.example.entities.ProductDetail;
 import co.example.enums.NameParamsFindByNameEnum;
+import co.example.enums.StatusCodeEnum;
 import co.example.usecase.CreateProductUseCase;
 import co.example.usecase.GetFeaturedProductListUseCase;
 import co.example.usecase.GetProductByNameUseCase;
 import co.example.usecase.GetProductDetailByIdUseCase;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import reactor.core.publisher.Mono;
 
@@ -53,9 +56,11 @@ public class ProductController {
     }
 
     @PostMapping()
-    public Mono<CompleteProductDto> getProductDetail(@RequestBody() CompleteProductDto completeProductDto) {
+    public Mono<ResponseEntity> createProduct(@RequestBody() CompleteProductDto completeProductDto) {
         return createProductUseCase.execute(ProductFactory.convertToCompleteProduct(completeProductDto))
-                .map(ProductFactory::convertToCompleteProductDto);
+                .map(tuple -> tuple.getT2() == StatusCodeEnum.CREATE.getCode()
+                        ? new ResponseEntity<>(ProductFactory.convertToCompleteProductDto(tuple.getT1()), HttpStatus.CREATED)
+                        : new ResponseEntity<>(tuple.getT3(), HttpStatus.BAD_REQUEST));
     }
 
 }
