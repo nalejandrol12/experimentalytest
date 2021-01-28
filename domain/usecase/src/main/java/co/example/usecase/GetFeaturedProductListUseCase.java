@@ -16,8 +16,8 @@ public class GetFeaturedProductListUseCase {
 
     public Flux<Product> execute() {
         return productGateway.findByFeaturedProduct().onErrorResume(error -> {
-            logger.error(error.getMessage());
-            return Mono.error(new Throwable("Error executing the query createProduct"));
+            logger.error("Error executing the query findByFeaturedProduct", error);
+            return Mono.error(error);
         });
     }
 }
