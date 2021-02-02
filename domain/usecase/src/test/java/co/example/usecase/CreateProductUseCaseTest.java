@@ -2,7 +2,6 @@ package co.example.usecase;
 
 import co.example.entities.CompleteProduct;
 import co.example.gateway.ProductGateway;
-import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.InjectMocks;
@@ -10,7 +9,6 @@ import org.mockito.Mock;
 import org.springframework.test.context.junit4.SpringRunner;
 import reactor.core.publisher.Mono;
 import reactor.test.StepVerifier;
-import reactor.util.function.Tuple3;
 
 import java.util.Collections;
 
@@ -48,15 +46,15 @@ public class CreateProductUseCaseTest {
         when(productGateway.createProduct(any(CompleteProduct.class)))
                 .thenReturn(Mono.just(completeProduct));
 
-        Mono<Tuple3<CompleteProduct, Integer, Object>> responseUseCase = useCase.execute(completeProduct);
+        Mono<CompleteProduct> responseUseCase = useCase.execute(completeProduct);
 
         StepVerifier.create(responseUseCase)
-                .assertNext(data -> Assert.assertNotNull(data.getT1()))
+                .expectNext(completeProduct)
                 .verifyComplete();
     }
 
     @Test
-    public void executeWhenValidationIsFalseTest() {
+    public void executeWhenValidationIsFalseAndReturnProductExceptionTest() {
 
         CompleteProduct completeProduct = CompleteProduct.builder()
                 .id(TEST_STRING)
@@ -74,11 +72,10 @@ public class CreateProductUseCaseTest {
         when(productGateway.createProduct(any(CompleteProduct.class)))
                 .thenReturn(Mono.just(completeProduct));
 
-        Mono<Tuple3<CompleteProduct, Integer, Object>> responseUseCase = useCase.execute(completeProduct);
+        Mono<CompleteProduct> responseUseCase = useCase.execute(completeProduct);
 
         StepVerifier.create(responseUseCase)
-                .assertNext(data -> Assert.assertNotNull(data.getT1()))
-                .verifyComplete();
+                .verifyError();
     }
 
     @Test
@@ -100,7 +97,7 @@ public class CreateProductUseCaseTest {
         when(productGateway.createProduct(any(CompleteProduct.class)))
                 .thenReturn(Mono.error(new Throwable("Error")));
 
-        Mono<Tuple3<CompleteProduct, Integer, Object>> responseUseCase = useCase.execute(completeProduct);
+        Mono<CompleteProduct> responseUseCase = useCase.execute(completeProduct);
 
         StepVerifier.create(responseUseCase)
                 .verifyError();

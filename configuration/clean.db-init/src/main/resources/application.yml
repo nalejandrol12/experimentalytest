@@ -1,6 +1,6 @@
 ##Spring Configuration
 server:
-  port: 7240
+  port: 8080
 spring:
   application:
     name: CleanArquitecture

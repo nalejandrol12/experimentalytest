@@ -8,5 +8,11 @@ dependencies {
     compile project(":driven-adapters-mongodb-repository")
     compile project(":driven-adapters-clean-repository")
 
+    compile group: 'org.springdoc', name: 'springdoc-openapi-webflux-core', version: '1.5.3'
+    compile group: 'org.springdoc', name: 'springdoc-openapi-ui', version: '1.5.3'
+
+
+
+
     runtime('org.springframework.boot:spring-boot-devtools')
 }
